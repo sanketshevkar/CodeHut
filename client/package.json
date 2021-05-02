@@ -1,39 +1,38 @@
 {
   "name": "client",
-  "version": "0.0.1",
-  "description": "Frontend client for CodeHub made using reactjs.",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/user-event": "^12.8.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sanketshevkar/CodeHut.git"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "keywords": [
-    "collborative",
-    "coding",
-    "web-components",
-    "video-audio",
-    "chat",
-    "webrtc"
-  ],
-  "author": "Sanket Shevkar",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/sanketshevkar/CodeHut/issues"
-  },
-  "homepage": "https://github.com/sanketshevkar/CodeHut#readme",
-  "devDependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-react": "^7.13.13",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.2.4",
-    "html-webpack-plugin": "^5.3.1",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.6.0",
-    "webpack-dev-server": "^3.11.2"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
