@@ -2,6 +2,7 @@ import '../App.css';
 //components
 import ProblemTab from './ProblemTab';
 import CodeEditor from './CodeEditor';
+import MediaView from './MediaView';
 //ant-design components
 import { Layout } from 'antd';
 
@@ -17,6 +18,7 @@ function Hut() {
         </Sider>
         <Content theme="light">
           <CodeEditor />
+          <MediaView />
         </Content>
       </Layout>
     </div>
