@@ -1,13 +1,15 @@
 import './App.css';
 //Components
 import Navbar from './components/Navbar';
-import Landing from './components/Landing';
+// import Landing from './components/Landing';
+import Hut from './components/Hut';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Navbar />
-      <Landing />
+      {/* <Landing /> */}
+      <Hut />
     </div>
   );
 }
