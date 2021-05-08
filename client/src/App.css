@@ -2,14 +2,37 @@
 
 .timestamp{
     font-size: 1.5rem;
-    color: #5f6368
+    color: #5f6368;
 }
 
 .product-text{
     font-size: 1.5rem;
-    color: #5f6368
+    color: #5f6368;
 }
 
-.landing{
-    margin: 2rem
+.github{
+    margin-left: 6rem;
+}
+
+.vectorimg{
+    width: 500px;
+    height: 500px;
+}
+
+.problemTab{
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+}
+
+.codeEditor{
+    height: 100%;
+}
+
+.codeBlock{
+    background-color: #e0e0e0;
+    border: 1px solid #d4d4d4;
+    padding: 3px;
+    border-radius: 3px;
 }

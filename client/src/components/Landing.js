@@ -2,7 +2,7 @@ import '../App.css';
 //asets
 import LandingVector from '../assets/LandingVector.png';
 //ant-design components
-import { Row, Col, Typography, Button, Input } from 'antd';
+import { Row, Col, Typography, Button, Input, Divider } from 'antd';
 import { PlusOutlined, RiseOutlined, FieldNumberOutlined } from '@ant-design/icons';
 
 
@@ -41,9 +41,10 @@ function Landing() {
                   </Row>
               </Col>
               <Col span={10} push={5}>
-                  <img alt="Landing Page Vector" src={LandingVector} style={{width:"500px", height:"500px"}} />
+                  <img alt="Landing Page Vector" className="vectorimg" src={LandingVector} />
               </Col>
           </Row>
+          <Divider />
       </div>
   );
 }
