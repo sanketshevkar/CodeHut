@@ -1,4 +1,6 @@
 import '../App.css';
+import { useRef } from 'react';
+import Draggable from 'react-draggable';
 //components
 import ProblemTab from './ProblemTab';
 import CodeEditor from './CodeEditor';
@@ -9,16 +11,21 @@ import { Layout } from 'antd';
 function Hut() {
 
   const { Content, Sider } = Layout;
+  const nodeRef = useRef(null);
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Layout>
         <Sider width="400" theme="light" className="problemtab">
           <ProblemTab />
         </Sider>
         <Content theme="light">
           <CodeEditor />
-          <MediaView />
+          <Draggable nodeRef={nodeRef}>
+            <div className="dragDiv" ref={nodeRef}>
+              <MediaView />
+            </div>
+          </Draggable>
         </Content>
       </Layout>
     </div>
