@@ -11,7 +11,7 @@ function App() {
       <Router>
       <Navbar />
         <Route exact path="/" component={Landing} />
-        <Route exact path="/hut" component={Hut} />
+        <Route exact path="/meeting" component={Hut} />
       </Router>
     </div>
   );
