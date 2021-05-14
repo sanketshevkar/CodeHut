@@ -1,9 +1,10 @@
 import '../App.css';
+import { useRef, useEffect } from 'react';
 //ant-design components
 import { Button, Tag } from 'antd';
 import { VideoCameraOutlined, AudioOutlined } from '@ant-design/icons';
 
-function MediaController() {
+function MediaController(props) {
 
   const audioButtonStyle = {
     position: 'absolute',
@@ -19,15 +20,22 @@ function MediaController() {
     margin: '5px' 
   }
 
+  const localStream = useRef();
+
+  useEffect(() => {
+    localStream.current.srcObject = props.localStream.current;
+  }, [props.localStream])
+
   return (
-    <div className="incomingStream">
+    <video className="incomingStream" muted autoPlay ref={localStream} playsInline>
+      {console.log(localStream.current)}
       <div className="outgoingStream">
         <Tag style={{margin: '3px'}}>User 2</Tag>
       </div>
       <Button shape="circle" ghost icon={<AudioOutlined />} style={ audioButtonStyle } />
       <Button shape="circle" ghost icon={<VideoCameraOutlined />} style={ videoButtonStyle } />
       <Tag style={{margin: '3px'}}>User 1</Tag>
-    </div>
+    </video>
   );
 }
 

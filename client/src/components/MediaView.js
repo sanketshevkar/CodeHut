@@ -6,7 +6,7 @@ import MediaController from './MediaController';
 import { Popover, Button } from 'antd';
 import { ArrowsAltOutlined } from '@ant-design/icons';
 
-function MediaView() {
+function MediaView(props) {
 
   const [visible, setVisible] = useState(false);
 
@@ -17,7 +17,7 @@ function MediaView() {
   return (
     <div>
       <Popover
-        content={<MediaController />}
+        content={<MediaController localStream={props.localStream} />}
         trigger="click"
         visible={visible}
         onVisibleChange={handleVisibleChange}
