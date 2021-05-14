@@ -44,11 +44,13 @@
 .incomingStream{
     width: 500px;
     height: 300px;
-    background-color: gray;
     border: 2px solid #d4d4d4;
     border-radius: 4px;
     position: relative;
     overflow: hidden;
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
 }
 
 .outgoingStream{
