@@ -10,32 +10,35 @@ function MediaController(props) {
     position: 'absolute',
     left: '35%',
     bottom: 0,
-    margin: '5px'
+    margin: '15px'
   }
 
   const videoButtonStyle = {
     position: 'absolute',
     right: '35%',
     bottom: 0,
-    margin: '5px' 
+    margin: '15px' 
   }
 
   const localStream = useRef();
+  const localStream2 = useRef();
 
   useEffect(() => {
     localStream.current.srcObject = props.localStream.current;
+    localStream2.current.srcObject = props.localStream.current;
   }, [props.localStream])
 
   return (
-    <video className="incomingStream" muted autoPlay ref={localStream} playsInline>
-      {console.log(localStream.current)}
-      <div className="outgoingStream">
-        <Tag style={{margin: '3px'}}>User 2</Tag>
+    <div className="mediaControllerIncoming">
+      <video className="incomingStream" muted autoPlay ref={localStream} playsInline />
+      <div className="mediaControllerOutgoing">
+          <Tag className="tag">User 2</Tag>
+          <video className="outgoingStream" muted autoPlay ref={localStream2} playsInline/>
       </div>
       <Button shape="circle" ghost icon={<AudioOutlined />} style={ audioButtonStyle } />
       <Button shape="circle" ghost icon={<VideoCameraOutlined />} style={ videoButtonStyle } />
-      <Tag style={{margin: '3px'}}>User 1</Tag>
-    </video>
+      <Tag className="tag">User 1</Tag>
+    </div>
   );
 }
 
