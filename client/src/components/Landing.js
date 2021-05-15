@@ -1,17 +1,25 @@
 import '../App.css';
-import { Link } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 //asets
 import LandingVector from '../assets/LandingVector.png';
 //ant-design components
 import { Row, Col, Typography, Button, Input, Divider } from 'antd';
-import { PlusOutlined, RiseOutlined, FieldNumberOutlined } from '@ant-design/icons';
+import { PlusOutlined, RiseOutlined } from '@ant-design/icons';
 
 
 function Landing(props) {
 
   const { Title } = Typography;
+  const { Search } = Input;
+  let history = useHistory();
 
-  const newMeetingHandler = async() =>{
+  const joinMeetingHandler = value =>{
+    props.setOperation("join");
+    props.setRoomId(value);
+    history.push('/meeting');
+  }
+
+  const newMeetingHandler = () =>{
     props.setOperation("create");
   }
 
@@ -41,10 +49,12 @@ function Landing(props) {
                         
                       </Col>
                       <Col push={1}>
-                        <Input placeholder="Enter Meeting Code" prefix={<FieldNumberOutlined />} />
-                      </Col>
-                      <Col push={1}>
-                        <Button type="ghost" shape="round" icon={<RiseOutlined />} />
+                        <Search
+                          placeholder="Meeting Id"
+                          onSearch={joinMeetingHandler}
+                          style={{ width: 200 }}
+                          enterButton={<Button type="ghost" shape="round" icon={<RiseOutlined />} />}
+                        />
                       </Col>
                   </Row>
               </Col>
@@ -57,4 +67,4 @@ function Landing(props) {
   );
 }
 
-export default Landing;
+export default withRouter(Landing);

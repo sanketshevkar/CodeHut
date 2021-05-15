@@ -8,12 +8,13 @@ import Hut from './components/Hut';
 
 function App() {
   const [operation, setOperation] = useState("");
+  const [roomId, setRoomId] = useState("");
   return (
     <div>
       <Router>
       <Navbar />
-        <Route exact path="/" component={()=>Landing({ setOperation })} />
-        <Route exact path="/meeting" component={()=>Hut({ operation })} />
+        <Route exact path="/" component={()=>Landing({ setOperation, setRoomId })} />
+        <Route exact path="/meeting" component={()=>Hut({ operation, roomId })} />
       </Router>
     </div>
   );

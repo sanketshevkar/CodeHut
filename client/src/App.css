@@ -59,7 +59,10 @@
     overflow: hidden;
     background-color: white;
     border-radius: 4px;
-    position: relative; 
+    position: relative;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg); 
 }
 
 .mediaControllerOutgoing{
