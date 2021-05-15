@@ -21,19 +21,19 @@ function MediaController(props) {
   }
 
   const localStream = useRef();
-  const localStream2 = useRef();
+  const remoteStream = useRef();
 
   useEffect(() => {
     localStream.current.srcObject = props.localStream.current;
-    localStream2.current.srcObject = props.localStream.current;
-  }, [props.localStream])
+    remoteStream.current.srcObject = props.remoteStream.current;
+  }, [props.localStream, props.remoteStream])
 
   return (
     <div className="mediaControllerIncoming">
-      <video className="incomingStream" muted autoPlay ref={localStream} playsInline />
+      <video className="incomingStream" autoPlay muted ref={localStream} playsInline />
       <div className="mediaControllerOutgoing">
           <Tag className="tag">User 2</Tag>
-          <video className="outgoingStream" muted autoPlay ref={localStream2} playsInline/>
+          <video className="outgoingStream" autoPlay ref={remoteStream} playsInline/>
       </div>
       <Button shape="circle" ghost icon={<AudioOutlined />} style={ audioButtonStyle } />
       <Button shape="circle" ghost icon={<VideoCameraOutlined />} style={ videoButtonStyle } />

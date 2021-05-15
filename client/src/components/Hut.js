@@ -123,14 +123,82 @@ function Hut(props) {
           });
         });
         // Listen for remote ICE candidates above
+        console.log(roomRef.id);
       }
 
       createRoom();
 
-    }else if(props.operation === "join"){
-
+    }else if(props.operation === "join" && props.roomId !== ""){
+      const joinRoomById = async() =>{
+        const stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+        // console.log(stream);
+        localStream.current = stream;
+        remoteStream.current = new MediaStream();
+        const db = firebase.firestore();
+        const roomRef = db.collection('rooms').doc(`${props.roomId}`);
+        const roomSnapshot = await roomRef.get();
+        console.log('Got room:', roomSnapshot.exists);
+        if (roomSnapshot.exists) {
+          console.log('Create PeerConnection with configuration: ', configuration);
+          peerConnection.current = new RTCPeerConnection(configuration);
+          registerPeerConnectionListeners();
+          localStream.current.getTracks().forEach(track => {
+            peerConnection.current.addTrack(track, localStream.current);
+          });
+    
+          // Code for collecting ICE candidates below
+          const calleeCandidatesCollection = roomRef.collection('calleeCandidates');
+          peerConnection.current.addEventListener('icecandidate', event => {
+            if (!event.candidate) {
+              console.log('Got final candidate!');
+              return;
+            }
+            console.log('Got candidate: ', event.candidate);
+            calleeCandidatesCollection.add(event.candidate.toJSON());
+          });
+          // Code for collecting ICE candidates above
+    
+          peerConnection.current.addEventListener('track', event => {
+            console.log('Got remote track:', event.streams[0]);
+            event.streams[0].getTracks().forEach(track => {
+              console.log('Add a track to the remoteStream:', track);
+              remoteStream.current.addTrack(track);
+            });
+          });
+    
+          // Code for creating SDP answer below
+          const offer = roomSnapshot.data().offer;
+          console.log('Got offer:', offer);
+          await peerConnection.current.setRemoteDescription(new RTCSessionDescription(offer));
+          const answer = await peerConnection.current.createAnswer();
+          console.log('Created answer:', answer);
+          await peerConnection.current.setLocalDescription(answer);
+    
+          const roomWithAnswer = {
+            answer: {
+              type: answer.type,
+              sdp: answer.sdp,
+            },
+          };
+          await roomRef.update(roomWithAnswer);
+          // Code for creating SDP answer above
+    
+          // Listening for remote ICE candidates below
+          roomRef.collection('callerCandidates').onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(async change => {
+              if (change.type === 'added') {
+                let data = change.doc.data();
+                console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+                await peerConnection.current.addIceCandidate(new RTCIceCandidate(data));
+              }
+            });
+          });
+          // Listening for remote ICE candidates above
+        }
+      }
+      joinRoomById();
     }
-  }, [props.operation]);
+  }, [props.operation, props.roomId]);
 
   return (
     <div style={{position: 'relative'}}>
@@ -142,7 +210,7 @@ function Hut(props) {
           <CodeEditor />
           <Draggable nodeRef={nodeRef}>
             <div className="dragDiv" ref={nodeRef}>
-              <MediaView localStream={localStream}/>
+              <MediaView localStream={localStream} remoteStream={remoteStream} />
             </div>
           </Draggable>
         </Content>

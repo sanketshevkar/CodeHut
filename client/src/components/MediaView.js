@@ -17,7 +17,7 @@ function MediaView(props) {
   return (
     <div>
       <Popover
-        content={<MediaController localStream={props.localStream} />}
+        content={<MediaController localStream={props.localStream} remoteStream={props.remoteStream} />}
         trigger="click"
         visible={visible}
         onVisibleChange={handleVisibleChange}
